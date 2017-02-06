@@ -1,12 +1,6 @@
 # A9-Silex-Gen
 ## About
-This is a yeoman generator for an apache/ngnix server with PHP and a MySQL database. It uses Silex as a backend framework(loaded with PHP Composer) and tools like Bower and Grunt for the frontend.
-## Yeoman installation
-```
-$ npm install -g yo
-$ npm install -g a9-silex-gen
-$ yo a9-silex
-```
+This is a base for an apache/ngnix server with PHP and a MySQL database. It uses Silex as a backend framework(loaded with PHP Composer) and tools like Bower and Grunt for the frontend.
 
 ## Fist configuration
 For this app to run, you will need to have PHP composer installed. It is a tool just like npm, but for PHP libs. (Download: getcomposer.org)
