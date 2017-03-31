@@ -15,7 +15,7 @@ class DemoController implements ControllerProviderInterface{
         $themodel = new DemoModel($app);
         
         $twigdata = [
-            'date' => $themodel->getdate();
+            'date' => $themodel->getdate()
         ];
         return $app['twig']->render('demo.twig', $twigdata);
     }
