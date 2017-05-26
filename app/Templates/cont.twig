@@ -67,6 +67,25 @@
                         </form>
                     </div>
                 </div>
+                {% if user.admin is defined and user.admin %}
+                <div class="card">
+                    <h3 class="title st2">Magazine în listă</h3>
+                    <div class="padder">
+                        Hello there, Administrator! You've got {{magaz_quee|length}} items in the list. <br>
+                        <div class="list">
+                            {% for itm in magaz_quee %}
+                            <div class="listi" data-id="{{itm.id}}">
+                                {{itm.user_nume}} (#{{itm.user_id}}) a propus magazinul <strong>{{itm.data.nume}}</strong> în orașul <strong>{{itm.data.nume_oras}}</strong>. <br>
+                                <a href="#" class="action_transcript btn2 mini blue">Transcrie</a>
+                                <a href="#" class="action_done btn2 mini">Finalizat</a>
+                                <a href="#" class="action_delete btn2 mini red">Șterge</a>
+                            </div>
+                            {% endfor %}
+                        </div>
+
+                    </div>
+                </div>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -74,6 +93,10 @@
     {% include 'part/scripts.twig' %}
     <script>
         initContOut();
+        suggestions1 = {};
+        {% for itm in magaz_quee %}
+            suggestions1["{{itm.id}}"] = JSON.parse('{{itm.data_json|raw}}');
+        {% endfor %}
     </script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3RLlCilqaQwBpwKngMfqpUftmOQqEQeM&libraries=places&callback=initContMap"> </script>
 </body>

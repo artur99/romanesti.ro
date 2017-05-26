@@ -76,6 +76,7 @@ function initContOut(){
         e.preventDefault();
         if(ajax1_running) return;
         var data = formGetter($(this));
+        var that = this;
         data.csrftoken = csrftoken;
         ajax2_running = 1;
         $.ajax({
@@ -87,7 +88,7 @@ function initContOut(){
             try{
                 if(resp.type == 'success'){
                     succ_txt(resp.text);
-                    reload(1500);
+                    clearFormOfData($(that));
                 }else if(resp.type == 'error'){
                     error_txt(resp.text);
                 }else{
@@ -100,7 +101,51 @@ function initContOut(){
             ajax2_running = 0;
             error();
         });
-    })
+    });
+
+    $(document).on('click', '.action_transcript', function(e){
+        e.preventDefault();
+        var dataid = $(this).closest(".listi").data('id');
+        var data = suggestions1[dataid];
+        loadFormWithData('#form_addmagaz', data);
+    });
+    $(document).on('click', '.action_done', function(e){
+        e.preventDefault();
+        delordone_magazfiz(this, 'done');
+    });
+    $(document).on('click', '.action_delete', function(e){
+        e.preventDefault();
+        delordone_magazfiz(this, 'del');
+    });
+    function delordone_magazfiz(that, type){
+        //type - del/done
+        var dataid = $(that).closest(".listi").data('id');
+        var this2 = $(that);
+        var data = {
+            id: dataid,
+            csrftoken: csrftoken
+        }
+        $.ajax({
+            method: 'POST',
+            url: ('/ajax/cont/set_magaz_fizic_'+type),
+            data: data
+        }).done(function(resp){
+            try{
+                if(resp.type == 'success'){
+                    succ_txt(resp.text);
+                    $(this2).closest(".listi").slideUp(function(){
+                        $(this).remove();
+                    });
+                }else{
+                    error();
+                }
+            }catch(e){
+                error();
+            }
+        }).fail(function(){
+            error();
+        });
+    }
 
     function error(){
         swal('Eroare', 'A apărut o eroare! Te rugăm să încerci din nou mai târziu.', 'error');
@@ -149,6 +194,25 @@ function initContMap(){
             $("#injLatHere").val(e.latLng.lat);
             $("#injLngHere").val(e.latLng.lng);
         });
+
+
+
+        $(document).on('click', '.action_transcript', function(e){
+            e.preventDefault();
+            var data = suggestions1[$(this).closest(".listi").data('id')];
+            var newLatLng = {
+                lat: data.lat,
+                lng: data.lng
+            };
+            if(typeof marker != 'undefined')
+                marker.setMap(null);
+            marker = new google.maps.Marker({
+                position: newLatLng,
+                map: map
+            });
+            map.panTo(newLatLng);
+            map.setZoom(15);
+        })
     }
 
     init();

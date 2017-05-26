@@ -11,3 +11,19 @@ function formGetter(form){
     }
     return obj2;
 }
+function loadFormWithData(form, data){
+    clearFormOfData(form);
+    form = $(form);
+    for(var key in data){
+        $(form).find('input[name='+key+']:not([type=submit])').val(data[key]);
+        $(form).find('textarea[name='+key+']').html(data[key]);
+        $(form).find('select[name='+key+']').val(data[key]);
+    }
+    return true;
+}
+function clearFormOfData(form){
+    form = $(form);
+    $(form).find("input:not([type=submit])").val("");
+    $(form).find("select").val("");
+    $(form).find("textarea").html("");
+}

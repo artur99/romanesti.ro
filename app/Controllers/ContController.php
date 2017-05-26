@@ -27,6 +27,11 @@ class ContController implements ControllerProviderInterface{
                 'countries' => StaticData::countryNames(),
                 'tipuri_magazin' => StaticData::tipuriMagaz()
             ];
+            if($this->userModel->isAdmin()){
+                $twigdata['magaz_quee'] = $this->userModel->getFizMagazQuee();
+            }else{
+                $twigdata['magaz_quee'] = null;
+            }
             return $app['twig']->render('cont.twig', $twigdata);
         }
     }

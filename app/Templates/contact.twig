@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'part/head.twig' %}
+</head>
+<body>
+    <div class="header st0">
+        <div class="headerin">
+            {% include 'part/top.twig' %}
+            <div class="titlesec">
+                <div class="titlesecin">
+                    <div class="in">
+                        <h1>Contact</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section st0 mwh">
+        <div class="in">
+            <h2 class="sectit sml">Bună!</h2>
+            <p class="big tac">
+                Ne bucurăm că ești interesat de acest proiect!<br>
+                Te așteptăm cu sugestii sau pentru o eventuală colaborare la adresa de email: <em>admin@romanesti.ro</em> <br>
+                Deasemenea, poți contribui trimițând informații despre magazinele din diferitele orașe din <a href="{{l('/cont')}}">contul tău<a>.
+            </p>
+            <div class="in small">
+                <p class="tac big"><strong>Top-ul celor mai implicați contribuitori:</strong></p>
+                <ol>
+                    {% for itm in contribs %}
+                    <li>{{itm.nume}} ({{itm.contributii}})</li>
+                    {% endfor %}
+                </ol>
+            </div>
+        </div>
+    </div>
+    {% include 'part/footer.twig' %}
+    {% include 'part/scripts.twig' %}
+    <script>
+        initContOut();
+    </script>
+</body>
+</html>

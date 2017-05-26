@@ -25,6 +25,12 @@ class UserModel extends BaseModel{
             return $this->session->get('user');
         return false;
     }
+    function isAdmin(){
+        $adm = $this->session->get('user');
+        if(isset($adm['admin']) && $adm['admin'])
+            return true;
+        return false;
+    }
     function pwEncode($pw){
         return substr(hash('sha512', $pw), 0, 50);
     }
@@ -134,7 +140,7 @@ class UserModel extends BaseModel{
             'text' => null
         ];
     }
-    function prepMagaz($data){
+    function checkMagazData($data, $as_admin = 0){
         $err = false;
         if(!$this->in()){
             $err = 'Trebuie să fii conectat pentru a face această acțiune';
@@ -172,23 +178,94 @@ class UserModel extends BaseModel{
             }elseif(!($o_data = $this->orasExista($data['oras']))){
                 $err = 'Numele orașului este incorect';
             }else{
-                $data_to_save = $data;
-                $uid = (int) $this->info()['id'];
-                $data_to_save['id_oras'] = $o_data['id'];
-                $data_to_save['nume_oras'] = $o_data['nume'];
-                $data2 = json_encode($data_to_save);
+                if($as_admin !== 1){
+                    $data_to_save = $data;
+                    $uid = (int) $this->info()['id'];
+                    $data_to_save['id_oras'] = $o_data['id'];
+                    $data_to_save['nume_oras'] = $o_data['nume'];
+                    $data2 = json_encode($data_to_save);
 
-                $stmt = $this->db->prepare("INSERT INTO sugestii(user_id, tip, data) VALUES(:uid, :type, :data)");
-                $stmt->bindValue('uid', $uid);
-                $stmt->bindValue('type', 'magazin_fizic');
-                $stmt->bindValue('data', $data2);
-                $stmt->execute();
+                    $stmt = $this->db->prepare("INSERT INTO sugestii(user_id, tip, data) VALUES(:uid, :type, :data)");
+                    $stmt->bindValue('uid', $uid);
+                    $stmt->bindValue('type', 'magazin_fizic');
+                    $stmt->bindValue('data', $data2);
+                    $stmt->execute();
+                }else{
+                    $sql_tmp = 'INSERT INTO magazine_fizice(id_oras, nume, nume_firma, nat_firma, nat_detinator, coord_lat, coord_lng, tip, romanesc, etichete, popularitate, descriere, logo)';
+                    $sql_tmp.= ' VALUES (:id_oras, :nume, :nume_f, :nat_f, :nat_det, :lat, :lng, :tip, :romanesc, :etichete, :pop, :descr, :logo)';
+                    $stmt = $this->db->prepare($sql_tmp);
+
+                    $isro = strtolower($data['nationalit']) == "ro" ? 1 : 0;
+                    $stmt->bindValue('id_oras', (int) $o_data['id']);
+                    $stmt->bindValue('nume', $data['nume']);
+                    $stmt->bindValue('nume_f', $data['nume_firma']);
+                    $stmt->bindValue('nat_f', NULL);
+                    $stmt->bindValue('nat_det', strtolower($data['nationalit']));
+                    $stmt->bindValue('lat', (float) $data['lat']);
+                    $stmt->bindValue('lng', (float) $data['lng']);
+                    $stmt->bindValue('tip', $data['tip']);
+                    $stmt->bindValue('romanesc', $isro);
+                    $stmt->bindValue('etichete', $data['etichete']);
+                    $stmt->bindValue('pop', $data['popularitate']);
+                    $stmt->bindValue('descr', $data['descriere']);
+                    $stmt->bindValue('logo', $data['logo']);
+                    $stmt->execute();
+                }
             }
         }
 
         return [
             'type' => $err?'error':'success',
-            'text' => $err?$err:'Sugestie de magazin trimisă cu succes!'
+            'text' => $err?$err:($as_admin?'Magazin adăugat cu succes!':'Sugestie de magazin trimisă cu succes!')
         ];
+    }
+    function prepMagaz($data){
+        return $this->checkMagazData($data, 0);
+    }
+    function addMagaz($data){
+        return $this->checkMagazData($data, 1);
+    }
+
+
+
+    function getFizMagazQuee(){
+        $stmt = $this->db->prepare("SELECT sugestii.*, users.nume AS user_nume FROM sugestii LEFT JOIN users ON sugestii.user_id = users.id WHERE verificat = 0 ORDER BY sugestii.id DESC");
+        $stmt->execute();
+        $results = $stmt->fetchAll();
+        foreach($results as $k=>$res){
+            $results[$k]['data_json'] = $results[$k]['data'];
+            $results[$k]['data'] = json_decode($results[$k]['data']);
+        }
+        return $results;
+    }
+    function setMagazFizSuggestionDone($sid){
+        $sid = intval($sid);
+        $stmt = $this->db->prepare("UPDATE users u INNER JOIN sugestii s ON u.id = s.user_id SET u.contributii = u.contributii+1, s.verificat = 1 WHERE s.id = :sid");
+        $stmt->bindValue('sid', $sid);
+        $stmt->execute();
+
+        return [
+            'type' => 'success',
+            'text' => 'Sugestie marcată ca finalizată'
+        ];
+    }
+    function delMagazFizSuggestion($sid){
+        $sid = intval($sid);
+        $stmt = $this->db->prepare("DELETE FROM sugestii WHERE id = :sid LIMIT 1");
+        $stmt->bindValue('sid', $sid);
+        $stmt->execute();
+
+        return [
+            'type' => 'success',
+            'text' => 'Sugestie eliminată cu succes'
+        ];
+    }
+    function getContribs($limit = 10){
+        $limit = intval($limit);
+        $stmt = $this->db->prepare("SELECT id, nume, contributii FROM users ORDER BY contributii DESC LIMIT :limit");
+        $stmt->bindValue('limit', $limit, PDO::PARAM_INT);
+        $stmt->execute();
+
+        return $stmt->fetchAll();
     }
 }

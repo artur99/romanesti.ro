@@ -5,6 +5,9 @@
 
 $app->mount('/', new Controllers\IndexController());
 $app->mount('/orase', new Controllers\OraseController());
+$app->mount('/magazine', new Controllers\MagazineController());
+$app->mount('/producatori', new Controllers\ProducatoriController());
+$app->mount('/contact', new Controllers\ContactController());
 $app->mount('/cont', new Controllers\ContController());
 
 $app->mount('/', new Controllers\FixerController());
