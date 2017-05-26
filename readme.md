@@ -9,3 +9,6 @@ $ composer install
 $ bower install
 $ grunt
 ```
+
+## Screenshots
+<a href="http://i.imgur.com/bMUFJsY.png" target="_blank"><img src="http://i.imgur.com/bMUFJsY.png" height="320"></a>
