@@ -58,6 +58,9 @@ src/less/compiled
 ### Zip Files ###
 *.zip
 
+### Other Junk ###
+_junk
+
 ### Configurations ###
 
 conf.yaml
