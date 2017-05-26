@@ -1,0 +1,47 @@
+@import '_variables.less';
+.results{
+    text-align: center;
+    width: 95%;
+}
+.results .ritem{
+    display: inline-block;
+    width: 18%;
+    margin: 0 0.7%;
+    overflow: hidden;
+    vertical-align: top;
+    padding: 12px;
+    text-align: left;
+    background: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    font-family: Montserrat;
+    border-top: 2px solid #00c300;
+    box-shadow: 0 1px 3px 1px rgba(0, 0, 0, 0.34);
+}
+.results .ritem h3{
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    margin-bottom: 10px;
+}
+.results .ritem p{
+    font-size: 11px;
+    color: #ccc;
+    margin: 0;
+}
+
+.autocomplete-suggestions{
+    box-shadow: 0 0 1px 0 rgba(0, 0, 0, 0.2);
+    background: #fff;
+    overflow: auto;
+    margin-top: 4px;
+    border-radius: 3px;
+    padding: 8px 9px;
+    white-space: nowrap;
+    cursor: pointer;
+}
+.autocomplete-selected{
+    background: #ddd;
+}
+.autocomplete-suggestions strong{
+    color: #333;
+}

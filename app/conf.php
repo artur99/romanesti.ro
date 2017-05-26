@@ -1,26 +1,35 @@
 <?php
 
 use Silex\Provider;
+use Silex\Application;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\HttpFoundation\RequestMatcher;
 use Symfony\Component\Yaml\Yaml;
 use Stringy\Stringy as S;
+use Models\UserModel;
 
 $app['conf.path'] = dirname(dirname($_SERVER['SCRIPT_FILENAME']));
 $app['twig.path'] = $app['conf.path'].'/app/Templates';
 $app['twig.assets'] = '/assets/';
-$app['conf.url'] = function($app){
+$app['request'] = function() use($app) {
+    return $app['request_stack']->getCurrentRequest();
+};
+$app['conf.url'] = function($app)use($app){
     return $app['request']->getScheme() . '://' . $app['request']->getHttpHost() . $app['request']->getBasePath();
 };
 $app['conf.url_path'] = function($app){
     return $app['request']->getBasePath();
 };
 
-$config = Yaml::parse($app['conf.path']."/app/conf.yaml");
+$config = Yaml::parse(@file_get_contents($app['conf.path']."/app/conf.yaml"));
+if(!$config){
+    throw new \Exception('Config file not defined');
+}
 
 foreach($config as $k=>$v){
     $app[$k]=$v;
@@ -64,6 +73,7 @@ function a_image($loc){
     }
     return $link;
 }
+
 function global_patches($app){
     global $fb;
     if($app['conf.facebook.use']){
@@ -76,10 +86,10 @@ function global_patches($app){
     }
 }
 
-$app['csrf'] = $app->share(function () {
+$app['csrf'] = function () {
     return new CsrfTokenManager();
-});
-$app['twig'] = $app->share($app->extend('twig', function($twig,$app){
+};
+$app['twig'] = $app->extend('twig', function($twig,$app){
     $twig->addExtension(new Twig_Extensions_Extension_Text());
     $twig->addFunction(new Twig_SimpleFunction('asset', function ($asset)use($app){
         if(strpos($asset, '://') !== false) return $asset;
@@ -122,26 +132,26 @@ $app['twig'] = $app->share($app->extend('twig', function($twig,$app){
         return Misc\MiscClass::shorten($text);
     }));
     return $twig;
-}));
-$app['user'] = $app->share(function() use ($app) {
-    return new user($app);
 });
+$app['user'] = function() use ($app) {
+    return new UserModel($app['db'], $app['session']);
+};
 
-$app['executers'] = $app->share(function() use ($app) {
+$app['executers'] = function() use ($app) {
     return [
         'user' => new \DaySplit\Executers\UserExecuter($app['db']),
     ];
-});
+};
 
 
 $app->before(function ($request)use($app) {
+    $a = global_patches($app);
     $request->getSession()->start();
     $rm = new RequestMatcher();
     $rm->matchPath("/ajax/.*");
-    if($rm->matches($request)){
+    if(false && $rm->matches($request)){
         if($app['csrf']->getToken('main')->__tostring() != $request->get('csrftoken')){
             return new JsonResponse(['type'=>'error','text'=>'Token invalid']);
         }
     }
-    global_patches($app);
 });

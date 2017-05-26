@@ -1,0 +1,228 @@
+@import '_variables.less';
+
+.btn1{
+    display: inline-block;
+    vertical-align: top;
+    cursor: pointer;
+    padding: 10px 17px;
+    text-decoration: none;
+    line-height: 18px;
+    font-size: 14px;
+    background: @green1;
+    color: #fff;
+    border-radius: 3px;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+    transition: .3s all;
+    border: none;
+    &:hover{
+        color: white;
+        box-shadow: 0 0 7px 0px rgba(0,0,0,0.5);
+    }
+    &.longer{
+        padding-left: 40px;
+        padding-right: 40px;
+    }
+    &.st1{
+        background: white;
+        color: #333;
+        &hover{
+
+        }
+    }
+}
+.btn2{
+    display: inline-block;
+    background: @green1;
+    padding: 8px 13px;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 16px;
+
+    &.mini{
+        font-size: 13px;
+        padding: 3px 7px;
+        border-radius: 3px;
+    }
+    &.st1{
+        background: @red1;
+        color: #fff;
+        font-size: 14px;
+    }
+}
+.input1{
+    display: inline-block;
+    vertical-align: top;
+    background: white;
+    color: #333;
+    font-size: 15px;
+    vertical-align: middle;
+    line-height: 18px;
+    padding: 9px 16px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+    outline: none;
+    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.1);
+}
+.input2{
+    display: inline-block;
+    vertical-align: top;
+    background: white;
+    color: #333;
+    font-size: 15px;
+    vertical-align: middle;
+    line-height: 18px;
+    background: #ddd;
+    border: none;
+    padding: 9px 16px;
+    border-radius: 3px;
+    border: 1px solid transparent;
+
+    .large-inputs &{
+        display: block;
+        margin: 13px auto;
+        width: 90%;
+    }
+
+    &:disabled{
+        background: #ccc;
+    }
+}
+
+.lbox, .rbox{
+    display: block;
+    float: left;
+    width: 50%;
+
+    @media @mobile1{
+        float: none;
+        width: 100%;
+    }
+}
+
+.badge{
+    display: inline-block;
+    padding: 3px 7px;
+    background: #333;
+    color: #fff;
+    border-radius: 3px;
+    &.red{
+        background: @red1;
+        border: 1px solid fade(#000, 10%);
+    }
+    &.green{
+        background: @green1;
+        border: 1px solid fade(#000, 10%);
+    }
+}
+.cards{
+    text-align: center;
+    &.tal{
+        text-align: left;
+    }
+    &.clearcards{
+        .padder{
+            padding: 20px;
+            p:nth-child(1){
+                margin-top: 0;
+            }
+        }
+    }
+    .card{
+        color: #333;
+        display: inline-block;
+        width: 300px;
+        min-height: 150px;
+        max-width: 98%;
+        margin: 5px;
+        text-align: left;
+        background: #fff;
+        border-radius: 4px;
+        vertical-align: top;
+        box-shadow: 0 1px 3px 0px rgba(50,50,50,0.2);
+        padding: 14px 18px;
+        .clearcards&{
+            padding: 0;
+            overflow: hidden;
+        }
+        .itac&{
+            text-align: center;
+        }
+        .title{
+            font-size: 20px;
+            line-height: 27px;
+            margin: 0;
+            margin-bottom: 4px;
+            &.st1{
+                font-size: 28px;
+                font-style: normal;
+                text-align: center;
+            }
+            &.st2{
+                font-size: 24px;
+                font-weight: normal;
+                text-align: center;
+                background: @green1;
+                padding: 10px 0;
+                color: white;
+                box-shadow: 0 0 2px 1px rgba(100, 100, 100, 0.2);
+            }
+        }
+    }
+    .card{
+        width: 15%;
+        @media @tab1{
+            width: 23%;
+        }
+        @media @mobile1{
+            width: 45%;
+        }
+        @media @mobile2{
+            width: 95%;
+        }
+    }
+}
+.cards{
+    &.d-6 .card{
+        width: 15%;
+    }
+    &.d-5 .card{
+        width: 19%;
+    }
+    &.d-2 .card{
+        width: 44%;
+    }
+    &.d-1 .card{
+        width: 90%;
+    }
+}
+@media @tab1{
+    .cards{
+        &.m-4 .card{
+            width: 23%;
+        }
+        &.m-2 .card{
+            width: 49%;
+        }
+        &.m-1 .card{
+            width: 90%;
+        }
+    }
+}
+@media @mobile1{
+    .cards{
+        &.x-2 .card{
+            width: 45%;
+        }
+        &.x-1 .card{
+            width: 90%;
+        }
+    }
+}
+@media @mobile2{
+    .cards{
+        &.s-1 .card{
+            width: 95%;
+        }
+    }
+}

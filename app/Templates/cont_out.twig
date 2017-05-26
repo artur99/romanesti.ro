@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'part/head.twig' %}
+</head>
+<body>
+    <div class="header st0">
+        <div class="headerin">
+            {% include 'part/top.twig' %}
+            <div class="titlesec">
+                <div class="titlesecin">
+                    <div class="in">
+                        <h1>Contul Meu</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section st0 mwh">
+        <div class="in">
+            <h2 class="sectit sml">Nu ești autentificat</h2>
+            <p class="big tac">
+                Te rugăm să te conectezi sau să îți creezi un cont nou.
+            </p>
+            <div class="cards d-2 m-2 x-2 s-1 clearcards">
+                <div class="card">
+                    <h3 class="title st2">Conectare</h3>
+                    <form action="" id="form_login" class="large-inputs">
+                        <input type="text" placeholder="Email..." name="email" class="input2">
+                        <input type="password" placeholder="Parolă..." name="password" class="input2">
+                        <input type="submit" value="Conectare" class="btn1">
+                    </form>
+                </div>
+                <div class="card">
+                    <h3 class="title st2">Cont nou</h3>
+                    <form action="" id="form_signup" class="large-inputs">
+                        <input type="email" placeholder="Email..." name="email" class="input2" required>
+                        <input type="text" placeholder="Nume..." name="nume" class="input2" required>
+                        <input type="password" placeholder="Parolă..." name="password" class="input2" required>
+                        <input type="password" placeholder="Confirmare parolă..." name="password2" class="input2" required>
+                        <input type="submit" value="Cont nou" class="btn1">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'part/footer.twig' %}
+    {% include 'part/scripts.twig' %}
+    <script>
+        initContOut();
+    </script>
+</body>
+</html>

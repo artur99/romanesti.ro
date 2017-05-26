@@ -53,6 +53,7 @@ public_html/assets/*
 !public_html/assets/readme.txt
 !public_html/assets/img*
 .trash
+src/less/compiled
 
 ### Configurations ###
 

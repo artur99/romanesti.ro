@@ -1,0 +1,5 @@
+<script type="text/javascript">
+    var csrftoken = '{{csrftoken('main')}}';
+    var currenturl = '{{app.request.attributes.get('_route')|trim('_')}}';
+</script>
+<script src="{{asset("components/data.js")}}"></script>

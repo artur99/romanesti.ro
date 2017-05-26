@@ -3,7 +3,7 @@
 namespace Controllers;
 
 use Silex\Application;
-use Silex\ControllerProviderInterface;
+use Silex\Api\ControllerProviderInterface;
 
 class IndexController implements ControllerProviderInterface{
     public function connect(Application $app){

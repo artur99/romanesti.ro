@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'part/head.twig' %}
+</head>
+<body>
+    <div class="header st0">
+        <div class="headerin">
+            {% include 'part/top.twig' %}
+            <div class="titlesec">
+                <div class="titlesecin">
+                    <div class="in">
+                        <h1>Orașul {{oras.nume}}</h1>
+                        <a href="{{l('/orase')}}" class="littlelink"><i class="material-icons">&#xE8B6;</i> Caută alt oraș</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section st0">
+        <div class="in">
+            <h2 class="sectit sml">Magazinele românești din {{oras.nume}}</h2>
+            <div class="legend">
+                <div class="lbox">
+                    Magazine românești <img src="{{asset('img/ui/pin1.png')}}" class="pin">
+                </div>
+                <div class="rbox">
+                    <img src="{{asset('img/ui/pin2.png')}}" class="pin"> Magazine străine
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section st2 stmapin">
+        <div class="in">
+            <div id="mainMap"></div>
+        </div>
+    </div>
+    <div class="section st3 green">
+        <div class="in">
+        <h2 class="sectit">Magazine românești</h2>
+            <div class="cards shops itac d-6 m-4 x-2 s-1">
+                {% for itm in magazine.romanesti %}
+                <div class="card" data-id="{{itm.id}}">
+                    <h3 class="title"><i class="flag {{itm.nat_detinator}}"></i> {{itm.nume}}</h3>
+                    <div class="mgzlogo {{itm.logo is empty?'romdeflogo'}}" {% if itm.logo %}style="background-image:url('{{itm.logo}}')"{% endif %}></div>
+                    <p class="nume_f">{{itm.nume_firma}}</p>
+                    <span class="badge type">{{itm.tip|title}}</span>
+                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
+                </div>
+                {% endfor %}
+                {% if magazine.romanesti|length == 0%}
+                    <p class="noinfotxt">Nu au fost înregistrate magazine în acest oraș.<br>Ne poți ajuta prin crearea unui cont și sugerarea de magazine.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="section st3 red">
+        <div class="in">
+        <h2 class="sectit">Magazine străine</h2>
+            <div class="cards shops itac d-6 m-4 x-2 s-1">
+                {% for itm in magazine.straine %}
+                <div class="card" data-id="{{itm.id}}">
+                    <h3 class="title"><i class="flag {{itm.nat_detinator}}"></i> {{itm.nume}}</h3>
+                    <div class="mgzlogo {{itm.logo is empty?'strdeflogo'}}" {% if itm.logo %}style="background-image:url('{{itm.logo}}')"{% endif %}></div>
+                    <p class="nume_f">{{itm.nume_firma}}</p>
+                    <span class="badge type">{{itm.tip|title}}</span>
+                    <a href="https://google.com/maps/q?={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
+                </div>
+                {% endfor %}
+                {% if magazine.romanesti|length == 0%}
+                    <p class="noinfotxt">Nu au fost înregistrate magazine în acest oraș.<br>Ne poți ajuta prin crearea unui cont și sugerarea de magazine.</p>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    <div class="section st0">
+        <div class="in">
+            <h2 class="sectit">De ce să cumpăr <span class="hilighted">românește</span>?</h2>
+            <div class="cards whytobuy d-5 m-4 x-2 s-1">
+                <div class="card">
+                    <div>
+                        <i class="material-icons">&#xE8DC;</i>
+                        <p>Vei sprijini economia țării prin punerea în valoare a firmelor românești. </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <i class="material-icons">&#xE53E;</i>
+                        <p>Vei sprijini concetățenii prin direcționarea profitului către firmele locale. </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <i class="material-icons">&#xE227;</i>
+                        <p>Vei scădea din suma economică ce iese înafara țării prin multinaționale sau corporații. </p>
+                    </div>
+                </div>
+                <div class="card">
+                    <div>
+                        <i class="material-icons">&#xE8E5;</i>
+                        <p>Vei contribui la scăderea inflației continue din ultimele decenii.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'part/footer.twig' %}
+    {% include 'part/scripts.twig' %}
+    <script>
+        var glob_lat = {{oras.coord_lat}};
+        var glob_lng = {{oras.coord_lng}};
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3RLlCilqaQwBpwKngMfqpUftmOQqEQeM&libraries=places&callback=initMapForCity"> </script>
+</body>
+</html>

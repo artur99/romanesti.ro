@@ -1,0 +1,153 @@
+@import '_variables.less';
+.section{
+    min-height: 200px;
+    color: #333;
+    h2{
+        margin: 0;
+        margin-bottom: 30px;
+        font-size: 35px;
+        font-weight: 400;
+        text-align: center;
+    }
+    &.mwh{
+        min-height: 60vh;
+    }
+    &.st0{
+        padding: 20px 0;
+        background: #fbfbfd;
+
+    }
+    &.st1{
+        padding: 100px 0;
+        background: #f9f9f9;
+    }
+    &.st2{
+        padding: 10px 0;
+        background: #333;
+        color: #fff;
+    }
+    &.st3{
+        padding: 50px 0;
+    }
+    &.st4{
+        padding: 20px 0;
+        background: #333;
+        color: #fff;
+    }
+}
+.section{
+
+    .st0& h2.sectit{
+        margin-top: 50px;
+        margin-bottom: 30px;
+        font-size: 32px;
+        &.sml{
+            margin-top: 20px;
+            margin-bottom: 10px;
+            font-size: 25px;
+        }
+    }
+    .st0&{
+        p.big{
+            font-size: 18px;
+        }
+        p.tac{
+            text-align: center;
+        }
+    }
+    .legend{
+        .rbox, .lbox{
+            padding: 0 10px;
+        }
+        .rbox{
+            text-align: left;
+        }
+        .lbox{
+            text-align: right;
+            border-right: 1px solid #ddd;
+        }
+        .pin{
+            height: 50px;
+            vertical-align: middle;
+        }
+        @media @mobile1{
+            .lbox, .rbox{
+                float: none;
+                width: 100%;
+                text-align: center;
+                border: none;
+            }
+        }
+    }
+}
+
+.section.stmapin{
+    #mainMap{
+        height: 80vh;
+    }
+}
+
+.section.st3{
+    background: #9C27B0;
+    color: #fff;
+    &.red{
+        background: @red1;
+    }
+    &.green{
+        background: @green1;
+    }
+    .noinfotxt{
+        font-style: italic;
+    }
+}
+.section.st4{
+    &.green{
+        background: @green1;
+    }
+    &.white{
+        background: #f9f9f9;
+        color: #333;
+    }
+    .in{
+        max-width: 800px;
+    }
+    .left,.right{
+        float: left;
+        padding: 20px;
+    }
+    .left{
+        width: 55%;
+        // text-align: left;
+    }
+    .right{
+        width: 45%;
+        // text-align: left;
+    }
+    .withi{
+        padding: 80px 0;
+        text-align: center;
+        i{
+            font-size: 290px;
+        }
+    }
+    .witht{
+        text-align: center;
+        h3{
+            font-size: 40px;
+            margin: 27px 0;
+            font-weight: normal;
+        }
+        .vsimg{
+            width: 220px;
+            max-width: 97%;
+            display: block;
+            margin: auto;
+            margin-top: -17px;
+            margin-bottom: 27px;
+        }
+        p{
+            margin: 0;
+            margin-bottom: 27px;
+        }
+    }
+}

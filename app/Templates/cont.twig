@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+<head>
+    {% include 'part/head.twig' %}
+</head>
+<body>
+    <div class="header st0">
+        <div class="headerin">
+            {% include 'part/top.twig' %}
+            <div class="titlesec">
+                <div class="titlesecin">
+                    <div class="in">
+                        <h1>Contul Meu</h1>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="section st0 mwh">
+        <div class="in">
+            <!-- <h2 class="sectit sml">Nu ești autentificat</h2>
+            <p class="big tac">
+                Te rugăm să te conectezi sau să îți creezi un cont nou.
+            </p> -->
+            <div class="cards d-2 m-1 x-1 s-1 clearcards">
+                <div class="card">
+                    <h3 class="title st2">Salut, {{user.nume}}!</h3>
+                    <div class="padder">
+                        <p>Bine ai venit în comunitatea noastră, <string>{{user.nume}}<string>!</p>
+                        <a href="#" class="btn2 st1 logout-button">Deconectare</a>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="title st2">Despre cont</h3>
+                    <div class="padder">
+                        <p>Ești aici de pe data de {{user.signup|date('d.m.Y')}}.</p>
+                        <p>Contribuții: {{user.contributii}}</p>
+                    </div>
+                </div>
+                <div class="card">
+                    <h3 class="title st2">Magazin fizic nou</h3>
+                    <div class="padder">
+                        <div id="mapCont"></div>
+                        <form action="" id="form_addmagaz" class="large-inputs">
+                            <input type="number" step="any" class="input2" name="lat" id="injLatHere" placeholder="Latitudine... (Alege pe hartă)" disabled>
+                            <input type="number" step="any" class="input2" name="lng" id="injLngHere" placeholder="Longitudine... (Alege pe hartă)" disabled>
+                            <input type="text" class="input2" name="oras" placeholder="Numele orașului... (ex.: Oradea)" required>
+                            <input type="text" class="input2" name="nume" placeholder="Nume magazin... (ex.: Altex)" required>
+                            <input type="text" class="input2" name="nume_firma" placeholder="Nume firmă... (ex.: Altex Romania SRL)" required>
+                            <input type="url" class="input2" name="logo" placeholder="Link logo firmă... (ex.: http://site.com/link.png)">
+                            <select name="nationalit" class="input2" required>
+                                <option value="">Naționalitatea deținătorului</option>
+                                {% for key, itm in countries %}
+                                    <option value="{{key}}">{{itm}}</option>
+                                {% endfor %}
+                            </select>
+                            <select name="tip" class="input2" required>
+                                <option value="">Tipul Magazinului</option>
+                                {% for key, itm in tipuri_magazin %}
+                                    <option value="{{key}}">{{itm}}</option>
+                                {% endfor %}
+                            </select>
+                            <input type="text" class="input2" name="etichete" placeholder="Etichete... (ex.: 'supermarket,unicarm,alimentar')">
+                            <input type="number" class="input2" name="popularitate" step="1" min="1" max="9" placeholder="Cât de cunoscut este? (1-9)" required>
+                            <textarea name="descriere" id="" class="input2" cols="30" rows="6" placeholder="Opțional, o descriere a magazinului..."></textarea>
+                            <input type="submit" value="Trimite" class="btn1 longer">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    {% include 'part/footer.twig' %}
+    {% include 'part/scripts.twig' %}
+    <script>
+        initContOut();
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyD3RLlCilqaQwBpwKngMfqpUftmOQqEQeM&libraries=places&callback=initContMap"> </script>
+</body>
+</html>
