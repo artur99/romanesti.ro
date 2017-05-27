@@ -64,7 +64,7 @@
                     <div class="mgzlogo {{itm.logo is empty?'strdeflogo'}}" {% if itm.logo %}style="background-image:url('{{itm.logo}}')"{% endif %}></div>
                     <p class="nume_f">{{itm.nume_firma}}</p>
                     <span class="badge type">{{itm.tip|title}}</span>
-                    <a href="https://google.com/maps/q?={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
+                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
                 </div>
                 {% endfor %}
                 {% if magazine.romanesti|length == 0%}
