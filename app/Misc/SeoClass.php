@@ -25,10 +25,10 @@ class SeoClass{
         }
     }
     public function set($key, $val){
-        if($key=='title') return $this->setTitle($val);
-        if($key=='descr') return $this->setDescr($val);
-        if($key=='description') return $this->setDescr($val);
-        if($key=='img') return $this->setImg($val);
+        if($key == 'title') return $this->setTitle($val);
+        if($key == 'descr') return $this->setDescr($val);
+        if($key == 'description') return $this->setDescr($val);
+        if($key == 'img') return $this->setImg($val);
     }
     public function setTitle($val){
         $this->og['title'] = $val;

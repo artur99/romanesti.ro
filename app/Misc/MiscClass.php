@@ -17,9 +17,6 @@ class MiscClass{
         if(isset($data['title'])){
             $data['title'] = substr($data['title'], 0, 100);
         }
-        if(isset($data['color'])){
-            $colors = explode(',', 'blue,red,purple,yellow,green,indigo,orange,pink,teal,amber');
-            if(!in_array($data['color'], $colors))$data['color'] = 'blue';
         }
         return $data;
     }
@@ -31,14 +28,5 @@ class MiscClass{
             if(strlen($data['password'])<6) return 0;
         }
         return 1;
-    }
-    public function encode($data){
-        return md5($data);
-    }
-    public function shorten($text){
-        $text = strtolower($text);
-        if($text=='profesor') return 'Prof.';
-        if($text=='director') return 'Dir.';
-        if($text=='director adjunct') return 'Adj.';
     }
 }
