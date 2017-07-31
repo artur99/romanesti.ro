@@ -5,14 +5,14 @@ namespace Controllers;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
-use Models\CityModel;
+use Models\ProdModel;
 
-class ProducatoriController implements ControllerProviderInterface{
+class ProdController implements ControllerProviderInterface{
     public function connect(Application $app){
         $indexController = $app['controllers_factory'];
         $indexController->get('/', [$this, 'index']);
 
-        // $this->CityModel = new CityModel($app['db']);
+        $this->ProdModel = new ProdModel($app['db']);
 
         return $indexController;
     }
@@ -22,6 +22,7 @@ class ProducatoriController implements ControllerProviderInterface{
         $twigdata = [
             // 'date' => $themodel->getdate()
         ];
+        // var_dump($this->ProdModel->searchAndGroup('pigna'));die();
 
         return $app['twig']->render('producatori.twig', $twigdata);
     }

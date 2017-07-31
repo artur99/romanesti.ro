@@ -27,3 +27,53 @@ function clearFormOfData(form){
     $(form).find("select").val("");
     $(form).find("textarea").html("");
 }
+function ajaxAlertHandler(data, succ_cb, err_cb){
+    try{
+        if(typeof data.title != 'string')
+            data.title = null;
+
+        if(data.type == 'success'){
+            succ_txt(data.text, data.title);
+
+            if(typeof succ_cb == 'function')
+                succ_cb();
+        }else{
+            if(data.type == 'error'){
+                error_txt(data.text, data.title);
+            }else{
+                error();
+            }
+            if(typeof err_cb == 'function')
+                err_cb();
+        }
+    }catch(e){
+        error();
+        if(typeof err_cb == 'function')
+            err_cb();
+    }
+}
+
+function error(){
+    swal('Eroare', 'A apărut o eroare! Te rugăm să încerci din nou mai târziu.', 'error');
+}
+function error_txt(txt, title){
+    if(typeof title != 'string')
+        title = 'Eroare';
+    swal(title, txt, 'error');
+}
+function succ_txt(txt, title){
+    if(typeof title != 'string')
+        title = 'Acțiune reușită!';
+    swal(title, txt, 'success');
+}
+function reload(time, loc){
+    if(typeof time == 'undefined')
+        time = 1000;
+
+    setTimeout(function(){
+        if(typeof loc != 'undefined')
+            window.location.href = loc;
+        else
+            window.location.reload();
+    }, time);
+}

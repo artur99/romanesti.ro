@@ -146,27 +146,6 @@ function initContOut(){
             error();
         });
     }
-
-    function error(){
-        swal('Eroare', 'A apărut o eroare! Te rugăm să încerci din nou mai târziu.', 'error');
-    }
-    function error_txt(txt){
-        swal('Eroare', txt, 'error');
-    }
-    function succ_txt(txt){
-        swal('Acțiune reușită!', txt, 'success');
-    }
-    function reload(time, loc){
-        if(typeof time == 'undefined')
-            time = 1000;
-
-        setTimeout(function(){
-            if(typeof loc != 'undefined')
-                window.location.href = loc;
-            else
-                window.location.reload();
-        }, time);
-    }
 }
 
 

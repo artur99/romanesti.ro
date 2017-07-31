@@ -6,6 +6,7 @@ use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
 use Models\CityModel;
+use Misc\SeoClass;
 
 class OraseController implements ControllerProviderInterface{
     public function connect(Application $app){
@@ -35,8 +36,13 @@ class OraseController implements ControllerProviderInterface{
             return $app->redirect('/oras/'.$res['slug']);
         }
         $magazs = $this->CityModel->getShops($res['id']);
+
+        $seo = new SeoClass('city', $app);
+        $seo->set('title', 'Magazine românești în '.$res['name']);
+
         $twigdata = [
             'title' => 'Orașul '.$res['name'],
+            'meta' => $seo->getAll(),
             'magazine' => $magazs,
             'oras' => $res
         ];

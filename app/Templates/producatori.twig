@@ -5,13 +5,27 @@
     {% include 'part/head.twig' %}
 </head>
 <body>
-    <div class="header st1 bg-4">
+    <div class="header st2 bg-4">
         <div class="headerin">
             {% include 'part/top.twig' %}
             <div class="hcont">
-                <img src="/assets/img/ui/logo1.png" alt="" class="biglogo">
-                <h2>În curând...</h2>
-                <h3>Cei mai mari producători români</h3>
+                <h2>Cumpără bunuri produse în România.</h2>
+                <h3>Sprijină-ți concetățenii și economia țării cumpărând românește. :)</h3>
+                <div class="headerformgroup">
+                    <form action="#" class="headerform2" id="search_prod_form">
+                        <div class="in2">
+                            <input id="search_prod_input" class="input1" type="text" placeholder="Scrie produsul... (ex.: caiete, răcoritoare, etc.)" disabled>
+                            <a href="#" class="btn1 longer" disabled>Caută producători</a>
+                            <h3 class="coming-soon2">În curând...</h3>
+                        </div>
+                    </form>
+                    <form action="#" class="headerform2" id="search_barcode_form">
+                        <div class="in2">
+                            <input id="search_barcode_input" class="input1" type="text" placeholder="Scrie primele 3 cifre din codul de bare...">
+                            <button type="submit" class="btn1 longer">Caută cod de bare</button>
+                        </div>
+                    </form>
+                </div>
             </div>
         </div>
     </div>

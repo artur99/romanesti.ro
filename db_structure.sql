@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: May 27, 2017 at 01:49 AM
+-- Generation Time: Jul 31, 2017 at 06:49 PM
 -- Server version: 10.1.19-MariaDB
 -- PHP Version: 7.0.13
 
@@ -23,104 +23,12 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Table structure for table `judete`
+-- Table structure for table `cities`
 --
 
-CREATE TABLE `judete` (
+CREATE TABLE `cities` (
   `id` int(11) NOT NULL,
-  `nume` text NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `judete`
---
-
-INSERT INTO `judete` (`id`, `nume`) VALUES
-(1, 'Alba'),
-(2, 'Arad'),
-(3, 'Argeș'),
-(4, 'Bacău'),
-(5, 'Bistrița-Năsăud'),
-(6, 'Botoșani'),
-(7, 'Brașov'),
-(8, 'Brăila'),
-(9, 'București'),
-(10, 'Buzău'),
-(11, 'Caraș-Severin'),
-(12, 'Călărași'),
-(13, 'Cluj'),
-(14, 'Constanța'),
-(15, 'Covansa'),
-(16, 'Dâmbovița'),
-(17, 'Dolj'),
-(18, 'Galați'),
-(19, 'Giurgiu'),
-(20, 'Gorj'),
-(21, 'Harghita'),
-(22, 'Hunedoara'),
-(23, 'Ialomița'),
-(24, 'Iași'),
-(25, 'Ilfov'),
-(26, 'Maramureș'),
-(27, 'Mehedinți'),
-(28, 'Mureș'),
-(29, 'Neamț'),
-(30, 'Olt'),
-(31, 'Prahova'),
-(32, 'Satu Mare'),
-(33, 'Sălaj'),
-(34, 'Sibiu'),
-(35, 'Suceava'),
-(36, 'Teleorman'),
-(37, 'Timiș'),
-(38, 'Tulcea'),
-(39, 'Vaslui'),
-(40, 'Vâlcea'),
-(41, 'Vrancea');
-
--- --------------------------------------------------------
-
---
--- Table structure for table `magazine_fizice`
---
-
-CREATE TABLE `magazine_fizice` (
-  `id` int(11) NOT NULL,
-  `id_oras` int(11) NOT NULL,
-  `nume` text NOT NULL,
-  `nume_firma` text,
-  `nat_firma` varchar(2) DEFAULT NULL,
-  `nat_detinator` varchar(2) DEFAULT NULL,
-  `coord_lat` double DEFAULT NULL,
-  `coord_lng` double DEFAULT NULL,
-  `tip` text,
-  `romanesc` tinyint(1) NOT NULL DEFAULT '0',
-  `etichete` text,
-  `popularitate` int(1) DEFAULT NULL,
-  `descriere` text,
-  `logo` text
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `magazine_fizice`
---
-
-INSERT INTO `magazine_fizice` (`id`, `id_oras`, `nume`, `nume_firma`, `nat_firma`, `nat_detinator`, `coord_lat`, `coord_lng`, `tip`, `romanesc`, `etichete`, `popularitate`, `descriere`, `logo`) VALUES
-(1, 115, 'Lidl', 'Lidl Stiftung & Co. KG', 'de', 'de', 47.4503031, 26.295875, 'supermarket', 0, 'supermarket,lidl,alimentar', 8, NULL, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Lidl_logo.png/220px-Lidl_logo.png'),
-(2, 115, 'Kaufland', 'Schwarz Gruppe GmbH', 'de', 'de', 47.4564563, 26.3140672, 'supermarket', 0, 'supermarket,kaufland,alimentar', 8, NULL, 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Kaufland.png'),
-(3, 115, 'Simos', 'Simos Com SRL', 'ro', 'ro', 47.461947, 26.2989, 'supermarket', 1, 'supermarket,simos,alimentar,fastfood,fast-food,', 2, NULL, NULL),
-(4, 115, 'Altex', 'Altex Romania SRL', 'ro', 'ro', 47.4592836, 26.3018065, 'retailer', 1, 'electronice,electrocasnice,altex,it', 8, NULL, 'https://stat.altex.ro/media/theme/websites/1/altex-logo.png'),
-
-
--- --------------------------------------------------------
-
---
--- Table structure for table `orase`
---
-
-CREATE TABLE `orase` (
-  `id` int(11) NOT NULL,
-  `nume` varchar(25) NOT NULL,
+  `name` varchar(25) NOT NULL,
   `slug` varchar(25) DEFAULT NULL,
   `judet` int(11) DEFAULT NULL,
   `coord_lat` double DEFAULT NULL,
@@ -128,10 +36,10 @@ CREATE TABLE `orase` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Dumping data for table `orase`
+-- Dumping data for table `cities`
 --
 
-INSERT INTO `orase` (`id`, `nume`, `slug`, `judet`, `coord_lat`, `coord_lng`) VALUES
+INSERT INTO `cities` (`id`, `name`, `slug`, `judet`, `coord_lat`, `coord_lng`) VALUES
 (1, '﻿Abrud', 'abrud', 1, 46.2684904, 23.079586029052734),
 (2, 'Adjud', 'adjud', 41, 46.0961957, 27.18218994140625),
 (3, 'Agnita', 'agnita', 34, 45.9791213, 24.61841583251953),
@@ -456,6 +364,128 @@ INSERT INTO `orase` (`id`, `nume`, `slug`, `judet`, `coord_lat`, `coord_lng`) VA
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `judete`
+--
+
+CREATE TABLE `judete` (
+  `id` int(11) NOT NULL,
+  `nume` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `judete`
+--
+
+INSERT INTO `judete` (`id`, `nume`) VALUES
+(1, 'Alba'),
+(2, 'Arad'),
+(3, 'Argeș'),
+(4, 'Bacău'),
+(5, 'Bistrița-Năsăud'),
+(6, 'Botoșani'),
+(7, 'Brașov'),
+(8, 'Brăila'),
+(9, 'București'),
+(10, 'Buzău'),
+(11, 'Caraș-Severin'),
+(12, 'Călărași'),
+(13, 'Cluj'),
+(14, 'Constanța'),
+(15, 'Covansa'),
+(16, 'Dâmbovița'),
+(17, 'Dolj'),
+(18, 'Galați'),
+(19, 'Giurgiu'),
+(20, 'Gorj'),
+(21, 'Harghita'),
+(22, 'Hunedoara'),
+(23, 'Ialomița'),
+(24, 'Iași'),
+(25, 'Ilfov'),
+(26, 'Maramureș'),
+(27, 'Mehedinți'),
+(28, 'Mureș'),
+(29, 'Neamț'),
+(30, 'Olt'),
+(31, 'Prahova'),
+(32, 'Satu Mare'),
+(33, 'Sălaj'),
+(34, 'Sibiu'),
+(35, 'Suceava'),
+(36, 'Teleorman'),
+(37, 'Timiș'),
+(38, 'Tulcea'),
+(39, 'Vaslui'),
+(40, 'Vâlcea'),
+(41, 'Vrancea');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `magazine_fizice`
+--
+
+CREATE TABLE `magazine_fizice` (
+  `id` int(11) NOT NULL,
+  `id_oras` int(11) NOT NULL,
+  `nume` text NOT NULL,
+  `nume_firma` text,
+  `nat_firma` varchar(2) DEFAULT NULL,
+  `nat_detinator` varchar(2) DEFAULT NULL,
+  `coord_lat` double DEFAULT NULL,
+  `coord_lng` double DEFAULT NULL,
+  `tip` text,
+  `romanesc` tinyint(1) NOT NULL DEFAULT '0',
+  `etichete` text,
+  `popularitate` int(1) DEFAULT NULL,
+  `descriere` text,
+  `logo` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `magazine_fizice`
+--
+
+INSERT INTO `magazine_fizice` (`id`, `id_oras`, `nume`, `nume_firma`, `nat_firma`, `nat_detinator`, `coord_lat`, `coord_lng`, `tip`, `romanesc`, `etichete`, `popularitate`, `descriere`, `logo`) VALUES
+(1, 115, 'Lidl', 'Lidl Stiftung & Co. KG', 'de', 'de', 47.4503031, 26.295875, 'supermarket', 0, 'supermarket,lidl,alimentar', 8, NULL, 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Lidl_logo.png/220px-Lidl_logo.png'),
+(2, 115, 'Kaufland', 'Schwarz Gruppe GmbH', 'de', 'de', 47.4564563, 26.3140672, 'supermarket', 0, 'supermarket,kaufland,alimentar', 8, NULL, 'https://upload.wikimedia.org/wikipedia/commons/5/5b/Kaufland.png'),
+(3, 115, 'Simos', 'Simos Com SRL', 'ro', 'ro', 47.461947, 26.2989, 'supermarket', 1, 'supermarket,simos,alimentar,fastfood,fast-food,', 2, NULL, NULL),
+(4, 115, 'Altex', 'Altex Romania SRL', 'ro', 'ro', 47.4592836, 26.3018065, 'retailer', 1, 'electronice,electrocasnice,altex,it', 8, NULL, 'https://stat.altex.ro/media/theme/websites/1/altex-logo.png'),
+(5, 115, 'Simos', 'Simos Com SRL', NULL, 'ro', 47.461489867502, 26.301974952221, 'supermarket', 1, 'supermarket,simos,alimentar', 2, '', ''),
+(6, 72, 'Lidl', 'Lidl Stiftung & Co. KG', NULL, 'de', 47.526847755406, 25.566759416834, 'supermarket', 0, '', 8, '', 'https://upload.wikimedia.org/wikipedia/commons/thumb/1/1d/Lidl_logo.png/220px-Lidl_logo.png'),
+(7, 72, 'Penny', 'Rewe', NULL, 'de', 47.528300275437, 25.564256832004, 'supermarket', 0, '', 8, '', '');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `producers`
+--
+
+CREATE TABLE `producers` (
+  `id` int(11) NOT NULL,
+  `name` text NOT NULL,
+  `com_name` text,
+  `com_nat` varchar(2) DEFAULT NULL,
+  `det_nat` varchar(2) DEFAULT NULL,
+  `type` text,
+  `romanesc` tinyint(1) NOT NULL DEFAULT '0',
+  `products` text,
+  `popularity` int(1) DEFAULT NULL,
+  `description` text,
+  `logo` text
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `producers`
+--
+
+INSERT INTO `producers` (`id`, `name`, `com_name`, `com_nat`, `det_nat`, `type`, `romanesc`, `products`, `popularity`, `description`, `logo`) VALUES
+(1, 'ProdCom', 'Tipografia Prodcom SRL', 'ro', 'ro', 'birotica', 1, 'Caiete,Rechizite,Pliante,Birotică,Papetărie,Hârtie', 6, NULL, 'http://www.tipografiaprodcom.ro/files/api/images/logo.png'),
+(2, 'Pigna', 'Pigna SLRC?!', 'it', 'it', 'birotica', 0, 'Caiete,Papetărie,Hârtie,Birotică', 9, NULL, 'http://pigna.ro/img/pigna-logo.png');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `sugestii`
 --
 
@@ -472,6 +502,10 @@ CREATE TABLE `sugestii` (
 --
 
 INSERT INTO `sugestii` (`id`, `user_id`, `tip`, `data`, `verificat`) VALUES
+(1, 2, 'magazin_fizic', '{"lat":47.461489867502,"lng":26.301974952221,"oras":"Falticeni","nume":"Simos","nume_firma":"Simos Com SRL","logo":"","nationalit":"RO","tip":"supermarket","etichete":"supermarket,simos,alimentar","popularitate":2,"descriere":"","id_oras":"115","nume_oras":"F\\u0103lticeni"}', 0),
+(6, 2, 'magazin_fizic', '{"lat":47.517200697839,"lng":25.585441589355,"oras":"Campulung moldovenesc","nume":"test","nume_firma":"test","logo":"","nationalit":"AF","tip":"supermarket","etichete":"test","popularitate":2,"descriere":"test","id_oras":"72","nume_oras":"C\\u00e2mpulung Moldovenesc"}', 0),
+(7, 2, 'magazin_fizic', '{"lat":47.526858622288,"lng":25.566534698009,"oras":"Campulung moldovenesc","nume":"Lidl","nume_firma":"Lidl Stiftung & Co. KG","logo":"https:\\/\\/upload.wikimedia.org\\/wikipedia\\/commons\\/thumb\\/1\\/1d\\/Lidl_logo.png\\/220px-Lidl_logo.png","nationalit":"DE","tip":"supermarket","etichete":"supermarket,lidl","popularitate":8,"descriere":"","id_oras":"72","nume_oras":"C\\u00e2mpulung Moldovenesc"}', 0),
+(9, 3, 'magazin_fizic', '{"lat":47.526847755406,"lng":25.566759416834,"oras":"Campulung moldovenesc","nume":"Lidl","nume_firma":"Lidl Stiftung & Co. KG","logo":"https:\\/\\/upload.wikimedia.org\\/wikipedia\\/commons\\/thumb\\/1\\/1d\\/Lidl_logo.png\\/220px-Lidl_logo.png","nationalit":"DE","tip":"supermarket","etichete":"","popularitate":8,"descriere":"","id_oras":"72","nume_oras":"C\\u00e2mpulung Moldovenesc"}', 1);
 
 -- --------------------------------------------------------
 
@@ -480,24 +514,28 @@ INSERT INTO `sugestii` (`id`, `user_id`, `tip`, `data`, `verificat`) VALUES
 --
 
 CREATE TABLE `users` (
-    `id` int(11) NOT NULL,
-    `email` varchar(50) NOT NULL,
-    `nume` varchar(50) NOT NULL,
-    `parola` varchar(50) NOT NULL,
-    `contributii` int(11) NOT NULL DEFAULT '0',
-    `reg_tm` int(11) DEFAULT NULL,
-    `log_tm` int(11) DEFAULT NULL,
-    `reg_ip` varchar(15) DEFAULT NULL,
-    `log_ip` varchar(15) DEFAULT NULL
+  `id` int(11) NOT NULL,
+  `email` varchar(50) NOT NULL,
+  `name` varchar(50) NOT NULL,
+  `password` varchar(50) NOT NULL,
+  `contribs` int(11) NOT NULL DEFAULT '0',
+  `reg_tm` int(11) DEFAULT NULL,
+  `log_tm` int(11) DEFAULT NULL,
+  `reg_ip` varchar(15) DEFAULT NULL,
+  `log_ip` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
---
--- Dumping data for table `users`
---
 
 --
 -- Indexes for dumped tables
 --
+
+--
+-- Indexes for table `cities`
+--
+ALTER TABLE `cities`
+  ADD PRIMARY KEY (`id`),
+  ADD KEY `nume` (`name`),
+  ADD KEY `slug` (`slug`);
 
 --
 -- Indexes for table `judete`
@@ -513,12 +551,10 @@ ALTER TABLE `magazine_fizice`
   ADD KEY `id_oras` (`id_oras`);
 
 --
--- Indexes for table `orase`
+-- Indexes for table `producers`
 --
-ALTER TABLE `orase`
-  ADD PRIMARY KEY (`id`),
-  ADD KEY `nume` (`nume`),
-  ADD KEY `slug` (`slug`);
+ALTER TABLE `producers`
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `sugestii`
@@ -537,6 +573,11 @@ ALTER TABLE `users`
 --
 
 --
+-- AUTO_INCREMENT for table `cities`
+--
+ALTER TABLE `cities`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
+--
 -- AUTO_INCREMENT for table `judete`
 --
 ALTER TABLE `judete`
@@ -545,22 +586,15 @@ ALTER TABLE `judete`
 -- AUTO_INCREMENT for table `magazine_fizice`
 --
 ALTER TABLE `magazine_fizice`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
--- AUTO_INCREMENT for table `orase`
+-- AUTO_INCREMENT for table `producers`
 --
-ALTER TABLE `orase`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=321;
+ALTER TABLE `producers`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `sugestii`
 --
 ALTER TABLE `sugestii`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
---
--- AUTO_INCREMENT for table `users`
---
-ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=1;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
+  

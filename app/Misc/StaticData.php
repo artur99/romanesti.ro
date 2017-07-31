@@ -185,7 +185,7 @@ class StaticData{
         	'PR' => 'Puerto Rico',
         	'QA' => 'Qatar',
         	'RE' => 'Reunion',
-        	'RO' => 'Romania',
+        	'RO' => 'România',
         	'RU' => 'Russian Federation',
         	'RW' => 'Rwanda',
         	'BL' => 'Saint Barthelemy',

@@ -5,7 +5,7 @@ class SeoClass{
     protected $type = 'index';
     protected $meta = [];
     protected $og = [];
-    function __construct($type=0, $app=0){
+    function __construct($type = 0, $app = 0){
         if($type!==0) $this->type = $type;
         if($app!==0) $this->appPreInit($app);
         $this->preInit();

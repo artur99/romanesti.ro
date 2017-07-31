@@ -18,13 +18,7 @@ class OraseAjaxController implements ControllerProviderInterface{
         return $indexController;
     }
     public function index(Application $app){
-        // $themodel = new DemoModel($app);
-
-        $twigdata = [
-            // 'date' => $themodel->getdate()
-        ];
-
-        return 2;//$app['twig']->render('oras_cautare.twig', $twigdata);
+        return JsonResponse(['type' => 'error']);
     }
 
     public function search(Application $app){

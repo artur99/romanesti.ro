@@ -4,13 +4,22 @@
     {% include 'part/head.twig' %}
 </head>
 <body>
+    <div id="fb-root"></div>
+    <script>(function(d, s, id) {
+      var js, fjs = d.getElementsByTagName(s)[0];
+      if (d.getElementById(id)) return;
+      js = d.createElement(s); js.id = id;
+      js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.10&appId=537144389743869";
+      fjs.parentNode.insertBefore(js, fjs);
+    }(document, 'script', 'facebook-jssdk'));
+    </script>
     <div class="header st0">
         <div class="headerin">
             {% include 'part/top.twig' %}
             <div class="titlesec">
                 <div class="titlesecin">
                     <div class="in">
-                        <h1>Orașul {{oras.nume}}</h1>
+                        <h1>Orașul {{oras.name}}</h1>
                         <a href="{{l('/orase')}}" class="littlelink mobile-only"><i class="material-icons">&#xE8B6;</i> Caută alt oraș</a>
                         <form action="#" class="littleform desktop-only" id="search_oras_form">
                             <div class="in2">
@@ -26,7 +35,7 @@
     </div>
     <div class="section st0">
         <div class="in">
-            <h2 class="sectit sml">Magazinele românești din {{oras.nume}}</h2>
+            <h2 class="sectit sml">Magazinele românești din {{oras.name}}</h2>
             <div class="legend">
                 <div class="lbox">
                     Magazine românești <img src="{{asset('img/ui/pin1.png')}}" class="pin">
@@ -34,6 +43,9 @@
                 <div class="rbox">
                     <img src="{{asset('img/ui/pin2.png')}}" class="pin"> Magazine străine
                 </div>
+            </div>
+            <div class="spshr">
+                <div class="fb-share-button" data-href="{{app.request.uri}}" data-layout="button_count" data-size="large" data-mobile-iframe="false"><a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">Share</a></div>
             </div>
         </div>
     </div>
