@@ -140,13 +140,13 @@ class UserModel extends BaseModel{
             'text' => null
         ];
     }
-    function checkMagazData($data, $as_admin = 0){
+    function checkShopData($data, $as_admin = 0){
         $err = false;
         if(!$this->in()){
             $err = 'Trebuie să fii conectat pentru a face această acțiune';
         }else{
             $countries = StaticData::countryNames();
-            $tipuriMagaz = StaticData::tipuriMagaz();
+            $shopTypes = StaticData::shopTypes();
             $all = ['lat', 'lng', 'nume', 'oras', 'nume_firma', 'logo', 'nationalit', 'tip', 'etichete', 'popularitate', 'descriere'];
             foreach($data as $k => $el2){
                 $data[$k] = trim($data[$k]);
@@ -171,7 +171,7 @@ class UserModel extends BaseModel{
                 $err = 'Nivelul de popularitate este invalid';
             }elseif(!isset($countries[$data['nationalit']])){
                 $err = 'Naționalitatea aleasă este invalidă';
-            }elseif(!isset($tipuriMagaz[$data['tip']])){
+            }elseif(!isset($shopTypes[$data['tip']])){
                 $err = 'Tipul de magazin ales este invalid';
             }elseif(strlen($data['nume']) < 3){
                 $err = 'Numele magazinului este prea scurt';
@@ -219,16 +219,16 @@ class UserModel extends BaseModel{
             'text' => $err?$err:($as_admin?'Magazin adăugat cu succes!':'Sugestie de magazin trimisă cu succes!')
         ];
     }
-    function prepMagaz($data){
-        return $this->checkMagazData($data, 0);
+    function prepShop($data){
+        return $this->checkShopData($data, 0);
     }
-    function addMagaz($data){
-        return $this->checkMagazData($data, 1);
+    function addShop($data){
+        return $this->checkShopData($data, 1);
     }
 
 
 
-    function getFizMagazQuee(){
+    function getFizShopQuee(){
         $stmt = $this->db->prepare("SELECT sugestii.*, users.nume AS user_nume FROM sugestii LEFT JOIN users ON sugestii.user_id = users.id WHERE verificat = 0 ORDER BY sugestii.id DESC");
         $stmt->execute();
         $results = $stmt->fetchAll();
@@ -238,7 +238,7 @@ class UserModel extends BaseModel{
         }
         return $results;
     }
-    function setMagazFizSuggestionDone($sid){
+    function setFizShopSuggestionDone($sid){
         $sid = intval($sid);
         $stmt = $this->db->prepare("UPDATE users u INNER JOIN sugestii s ON u.id = s.user_id SET u.contributii = u.contributii+1, s.verificat = 1 WHERE s.id = :sid");
         $stmt->bindValue('sid', $sid);
@@ -249,7 +249,7 @@ class UserModel extends BaseModel{
             'text' => 'Sugestie marcată ca finalizată'
         ];
     }
-    function delMagazFizSuggestion($sid){
+    function delFizShopSuggestion($sid){
         $sid = intval($sid);
         $stmt = $this->db->prepare("DELETE FROM sugestii WHERE id = :sid LIMIT 1");
         $stmt->bindValue('sid', $sid);

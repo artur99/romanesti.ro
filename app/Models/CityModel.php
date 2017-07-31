@@ -5,7 +5,7 @@ namespace Models;
 use Stringy\Stringy as S;
 use PDO;
 
-class OrasModel extends BaseModel{
+class CityModel extends BaseModel{
     public function search($string, $limit = 5){
         $string = S::create($string)->slugify('%')->__toString();
         $results = [];
@@ -35,7 +35,7 @@ class OrasModel extends BaseModel{
         }
         return false;
     }
-    public function getMagazs($oras_id){
+    public function getShops($oras_id){
         $id = intval($oras_id);
         $stmt = $this->db->prepare("SELECT * FROM magazine_fizice WHERE id_oras = :id ORDER BY romanesc DESC LIMIT 100");
         $stmt->bindValue('id', $oras_id);
@@ -54,15 +54,15 @@ class OrasModel extends BaseModel{
             'straine' => array_slice($result, $sp+1, sizeof($result))
         ];
     }
-    public function getMagazsByCoord($lat, $lng, $size){
+    public function getShopsByCoord($lat, $lng, $size){
         $lng_l = (float)($lng - $size);
         $lng_r = (float)($lng + $size);
         $lat_l = (float)($lat - $size);
         $lat_r = (float)($lat + $size);
 
-        return $this->getMagazsByBorder($lng_l, $lng_r, $lat_l, $lat_r);
+        return $this->getShopsByBorder($lng_l, $lng_r, $lat_l, $lat_r);
     }
-    function getMagazsByBorder($lng_l, $lng_r, $lat_l, $lat_r){
+    function getShopsByBorder($lng_l, $lng_r, $lat_l, $lat_r){
         $stmt = $this->db->prepare("SELECT * FROM magazine_fizice WHERE coord_lat > :lat_l AND coord_lat < :lat_r AND coord_lng > :lng_l AND coord_lng < :lng_r ORDER BY romanesc DESC LIMIT 100");
         $stmt->bindValue('lng_l', $lng_l);
         $stmt->bindValue('lng_r', $lng_r);

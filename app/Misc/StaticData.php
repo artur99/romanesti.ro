@@ -253,7 +253,7 @@ class StaticData{
         	'ZW' => 'Zimbabwe'
         ];
     }
-    function tipuriMagaz(){
+    function shopTypes(){
         return [
             'supermarket' => 'Supermarket',
             'retailer' => 'Retailer'

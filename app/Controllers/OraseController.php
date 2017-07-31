@@ -5,7 +5,7 @@ namespace Controllers;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
-use Models\OrasModel;
+use Models\CityModel;
 
 class OraseController implements ControllerProviderInterface{
     public function connect(Application $app){
@@ -13,7 +13,7 @@ class OraseController implements ControllerProviderInterface{
         $indexController->get('/', [$this, 'index']);
         $indexController->get('/{nume_oras}', [$this, 'oras']);
 
-        $this->orasModel = new OrasModel($app['db']);
+        $this->CityModel = new CityModel($app['db']);
 
         return $indexController;
     }
@@ -27,14 +27,14 @@ class OraseController implements ControllerProviderInterface{
         return $app['twig']->render('oras_cautare.twig', $twigdata);
     }
     public function oras(Application $app, $nume_oras){
-        $res = $this->orasModel->find(substr($nume_oras, 0, 25));
+        $res = $this->CityModel->find(substr($nume_oras, 0, 25));
         if(!$res){
             //not found exc
         }
         if(strtolower($res['slug']) != strtolower($nume_oras)){
             return $app->redirect('/oras/'.$res['slug']);
         }
-        $magazs = $this->orasModel->getMagazs($res['id']);
+        $magazs = $this->CityModel->getShops($res['id']);
         $twigdata = [
             'title' => 'Orașul '.$res['nume'],
             'magazine' => $magazs,

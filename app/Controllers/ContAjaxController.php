@@ -14,7 +14,7 @@ class ContAjaxController implements ControllerProviderInterface{
         $indexController->post('/signup', [$this, 'signup']);
         $indexController->post('/login', [$this, 'login']);
         $indexController->post('/signout', [$this, 'signout']);
-        $indexController->post('/add_magaz_fizic', [$this, 'addMagazFizic']);
+        $indexController->post('/add_magaz_fizic', [$this, 'addShopFizic']);
         $indexController->post('/set_magaz_fizic_done', [$this, 'setMagazFizicDone']);
         $indexController->post('/set_magaz_fizic_del', [$this, 'setMagazFizicDel']);
 
@@ -52,13 +52,13 @@ class ContAjaxController implements ControllerProviderInterface{
         return new JsonResponse($q);
     }
 
-    public function addMagazFizic(Application $app){
+    public function addShopFizic(Application $app){
         $data = $app['request']->request->all();
 
         if($this->userModel->isAdmin()){
-            $q = $this->userModel->addMagaz($data);
+            $q = $this->userModel->addShop($data);
         } else {
-            $q = $this->userModel->prepMagaz($data);
+            $q = $this->userModel->prepShop($data);
         }
 
         return new JsonResponse($q);
@@ -66,13 +66,13 @@ class ContAjaxController implements ControllerProviderInterface{
 
     function setMagazFizicDone(Application $app){
         $sgid = $app['request']->request->get('id');
-        $q = $this->userModel->setMagazFizSuggestionDone($sgid);
+        $q = $this->userModel->setFizShopSuggestionDone($sgid);
 
         return new JsonResponse($q);
     }
     function setMagazFizicDel(Application $app){
         $sgid = $app['request']->request->get('id');
-        $q = $this->userModel->delMagazFizSuggestion($sgid);
+        $q = $this->userModel->delFizShopSuggestion($sgid);
 
         return new JsonResponse($q);
     }

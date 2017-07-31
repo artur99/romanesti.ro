@@ -6,7 +6,7 @@ use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 use Symfony\Component\HttpFoundation\JsonResponse;
 
-use Models\OrasModel;
+use Models\CityModel;
 
 class OraseAjaxController implements ControllerProviderInterface{
     public function connect(Application $app){
@@ -14,7 +14,7 @@ class OraseAjaxController implements ControllerProviderInterface{
         $indexController->post('/search', [$this, 'search']);
         $indexController->post('/get', [$this, 'getdata']);
         $indexController->post('/gey_bycoord', [$this, 'getbycoord']);
-        $this->orasModel = new OrasModel($app['db']);
+        $this->CityModel = new CityModel($app['db']);
         return $indexController;
     }
     public function index(Application $app){
@@ -30,7 +30,7 @@ class OraseAjaxController implements ControllerProviderInterface{
     public function search(Application $app){
         $query = $app['request']->request->get('q');
 
-        $results = $this->orasModel->search($query);
+        $results = $this->CityModel->search($query);
 
         return new JsonResponse($results);
     }
@@ -38,7 +38,7 @@ class OraseAjaxController implements ControllerProviderInterface{
     public function getdata(Application $app){
         $o_id = $app['request']->request->get('id');
 
-        $mgz = $this->orasModel->getMagazs($o_id);
+        $mgz = $this->CityModel->getShops($o_id);
 
         return new JsonResponse([
             'magazine' => $mgz
@@ -52,14 +52,14 @@ class OraseAjaxController implements ControllerProviderInterface{
             $lat = (float) $app['request']->request->get('lat');
             $lng = (float) $app['request']->request->get('lng');
             $size = (float) $app['request']->request->get('size');
-            $mgz = $this->orasModel->getMagazsByCoord($lat, $lng, $size);
+            $mgz = $this->CityModel->getShopsByCoord($lat, $lng, $size);
         }else{
             $lat_l = (float) $app['request']->request->get('lat_l');
             $lat_r = (float) $app['request']->request->get('lat_r');
             $lng_l = (float) $app['request']->request->get('lng_l');
             $lng_r = (float) $app['request']->request->get('lng_r');
 
-            $mgz = $this->orasModel->getMagazsByBorder($lng_l, $lng_r, $lat_l, $lat_r);
+            $mgz = $this->CityModel->getShopsByBorder($lng_l, $lng_r, $lat_l, $lat_r);
         }
 
         return new JsonResponse([

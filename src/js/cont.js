@@ -72,7 +72,7 @@ function initContOut(){
             reload(10, '/cont');
         });
     });
-    $(document).on('submit', '#form_addmagaz', function(e){
+    $(document).on('submit', '#form_addShop', function(e){
         e.preventDefault();
         if(ajax1_running) return;
         var data = formGetter($(this));
@@ -107,7 +107,7 @@ function initContOut(){
         e.preventDefault();
         var dataid = $(this).closest(".listi").data('id');
         var data = suggestions1[dataid];
-        loadFormWithData('#form_addmagaz', data);
+        loadFormWithData('#form_addShop', data);
     });
     $(document).on('click', '.action_done', function(e){
         e.preventDefault();

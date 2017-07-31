@@ -5,14 +5,14 @@ namespace Controllers;
 use Silex\Application;
 use Silex\Api\ControllerProviderInterface;
 
-use Models\OrasModel;
+use Models\CityModel;
 
 class ProducatoriController implements ControllerProviderInterface{
     public function connect(Application $app){
         $indexController = $app['controllers_factory'];
         $indexController->get('/', [$this, 'index']);
 
-        // $this->orasModel = new OrasModel($app['db']);
+        // $this->CityModel = new CityModel($app['db']);
 
         return $indexController;
     }

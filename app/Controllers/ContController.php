@@ -25,10 +25,10 @@ class ContController implements ControllerProviderInterface{
         }else {
             $twigdata = [
                 'countries' => StaticData::countryNames(),
-                'tipuri_magazin' => StaticData::tipuriMagaz()
+                'tipuri_magazin' => StaticData::shopTypes()
             ];
             if($this->userModel->isAdmin()){
-                $twigdata['magaz_quee'] = $this->userModel->getFizMagazQuee();
+                $twigdata['magaz_quee'] = $this->userModel->getFizShopQuee();
             }else{
                 $twigdata['magaz_quee'] = null;
             }
