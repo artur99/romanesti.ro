@@ -480,12 +480,15 @@ INSERT INTO `sugestii` (`id`, `user_id`, `tip`, `data`, `verificat`) VALUES
 --
 
 CREATE TABLE `users` (
-  `id` int(11) NOT NULL,
-  `email` varchar(50) NOT NULL,
-  `nume` varchar(50) NOT NULL,
-  `parola` varchar(50) NOT NULL,
-  `contributii` int(11) NOT NULL DEFAULT '0',
-  `signup` int(11) NOT NULL
+    `id` int(11) NOT NULL,
+    `email` varchar(50) NOT NULL,
+    `nume` varchar(50) NOT NULL,
+    `parola` varchar(50) NOT NULL,
+    `contributii` int(11) NOT NULL DEFAULT '0',
+    `reg_tm` int(11) DEFAULT NULL,
+    `log_tm` int(11) DEFAULT NULL,
+    `reg_ip` varchar(15) DEFAULT NULL,
+    `log_ip` varchar(15) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --

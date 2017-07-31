@@ -43,7 +43,7 @@ class UserModel extends BaseModel{
             return true;
         return false;
     }
-    function orasExista($nm){
+    function cityExists($nm){
         $nm = S::create($nm)->slugify('%')->__toString();
 
         if(strlen(trim($nm))>0){
@@ -74,11 +74,12 @@ class UserModel extends BaseModel{
         }else{
             $pw = (string) $this->pwEncode($pw);
             $nm = (string) S::create($nm)->toTitleCase()->__toString();
-            $stmt = $this->db->prepare("INSERT INTO users(nume, email, parola, signup) VALUES(:nm, :em, :pw, :tm)");
+            $stmt = $this->db->prepare("INSERT INTO users(nume, email, parola, reg_tm, log_tm, reg_ip, log_ip) VALUES(:nm, :em, :pw, :tm, :tm, :ip, :ip)");
             $stmt->bindValue('nm', $nm);
             $stmt->bindValue('em', $em);
             $stmt->bindValue('pw', $pw);
             $stmt->bindValue('tm', time());
+            $stmt->bindValue('ip', isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:NULL);
             $stmt->execute();
             $id = $this->db->lastInsertId();
 
@@ -107,6 +108,10 @@ class UserModel extends BaseModel{
             if(!isset($r['id'])){
                 $err = 'Adresa de email și parola nu corespund';
             }else{
+                $stmt = $this->db->prepare("UPDATE users SET log_tm = :tm, log_ip = :ip");
+                $stmt->bindValue('tm', time());
+                $stmt->bindValue('ip', isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:NULL);
+                $stmt->execute();
                 $this->loginSet($r['id'], $r['nume'], $r['email'], $r['signup'], $r['contributii']);
             }
         }
@@ -175,7 +180,7 @@ class UserModel extends BaseModel{
                 $err = 'Tipul de magazin ales este invalid';
             }elseif(strlen($data['nume']) < 3){
                 $err = 'Numele magazinului este prea scurt';
-            }elseif(!($o_data = $this->orasExista($data['oras']))){
+            }elseif(!($o_data = $this->cityExists($data['oras']))){
                 $err = 'Numele orașului este incorect';
             }else{
                 if($as_admin !== 1){
@@ -262,7 +267,7 @@ class UserModel extends BaseModel{
     }
     function getContribs($limit = 10){
         $limit = intval($limit);
-        $stmt = $this->db->prepare("SELECT id, nume, contributii FROM users ORDER BY contributii DESC LIMIT :limit");
+        $stmt = $this->db->prepare("SELECT id, nume, contributii FROM users WHERE contributii > 0 ORDER BY contributii DESC LIMIT :limit");
         $stmt->bindValue('limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
