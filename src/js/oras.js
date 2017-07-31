@@ -18,7 +18,7 @@ function search_oras_resolver(){
                 response = JSON.parse(response);
             return {
                 suggestions: $.map(response.results, function(itm) {
-                    return {value: itm.nume, data: itm.slug };
+                    return {value: itm.name, data: itm.slug };
                 })
             };
         },
@@ -42,7 +42,7 @@ function search_oras_resolver(){
             return loadCity(latest_suggestions[0].value, latest_suggestions[0].data);
         }else{
             findCity(function(data){
-                loadCity(data[0].nume, data[0].slug);
+                loadCity(data[0].name, data[0].slug);
             });
         }
     })
@@ -58,7 +58,7 @@ function findCity(callback){
             callback(data.results);
     })
 }
-function loadCity(nume, slug){
+function loadCity(name, slug){
     console.log(slug);
     window.location.href = '/oras/'+slug;
 }

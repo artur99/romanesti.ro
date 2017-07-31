@@ -22,13 +22,13 @@
             <p class="big tac">
                 Ne bucurăm că ești interesat de acest proiect!<br>
                 Te așteptăm cu sugestii sau pentru o eventuală colaborare la adresa de email: <em>admin@romanesti.ro</em> <br>
-                Deasemenea, poți contribui trimițând informații despre magazinele din diferitele orașe din <a href="{{l('/cont')}}">contul tău<a>.
+                Deasemenea, poți contribui trimițând informații despre magazinele din diferitele orașe în <a href="{{l('/cont')}}">contul tău<a>.
             </p>
             <div class="in small">
                 <p class="tac big"><strong>Top-ul celor mai implicați contribuitori:</strong></p>
                 <ol>
                     {% for itm in contribs %}
-                    <li>{{itm.nume}} ({{itm.contributii}})</li>
+                    <li>{{itm.name}} ({{itm.contribs}})</li>
                     {% endfor %}
                 </ol>
             </div>

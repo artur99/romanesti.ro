@@ -11,7 +11,7 @@ class CityModel extends BaseModel{
         $results = [];
 
         if(strlen(trim($string))>0){
-            $stmt = $this->db->prepare("SELECT * FROM orase WHERE nume LIKE :name ORDER BY CASE WHEN nume LIKE :name2 THEN 1 ELSE 2 END ASC LIMIT :limit");
+            $stmt = $this->db->prepare("SELECT * FROM cities WHERE name LIKE :name ORDER BY CASE WHEN name LIKE :name2 THEN 1 ELSE 2 END ASC LIMIT :limit");
             $stmt->bindValue('name', '%'.$string.'%');
             $stmt->bindValue('name2', $string.'%');
             $stmt->bindValue('limit', $limit, PDO::PARAM_INT);
@@ -27,7 +27,7 @@ class CityModel extends BaseModel{
 
         if(strlen(trim($slug))>0){
             $slug = (string) $slug;
-            $stmt = $this->db->prepare("SELECT * FROM orase WHERE slug = :slug LIMIT 1");
+            $stmt = $this->db->prepare("SELECT * FROM cities WHERE slug = :slug LIMIT 1");
             $stmt->bindValue('slug', $slug);
             $stmt->execute();
             $result = $stmt->fetch();

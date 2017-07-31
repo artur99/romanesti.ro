@@ -70,12 +70,26 @@
             height: 50px;
             vertical-align: middle;
         }
+        .lbox:after{
+            display: none;
+            content: '';
+            height: 1px;
+            width: 78%;
+            background: rgba(0, 0, 0, 0.2);
+            margin: 8px auto;
+        }
         @media @mobile1{
+            .pin{
+                height: 33px;
+            }
             .lbox, .rbox{
                 float: none;
                 width: 100%;
                 text-align: center;
                 border: none;
+            }
+            .lbox:after{
+                display: block;
             }
         }
     }

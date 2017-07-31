@@ -24,17 +24,17 @@
             </p> -->
             <div class="cards d-2 m-1 x-1 s-1 clearcards">
                 <div class="card">
-                    <h3 class="title st2">Salut, {{user.nume}}!</h3>
+                    <h3 class="title st2">Salut, {{user.name}}!</h3>
                     <div class="padder">
-                        <p>Bine ai venit în comunitatea noastră, <string>{{user.nume}}<string>!</p>
+                        <p>Bine ai venit în comunitatea noastră, <string>{{user.name}}<string>!</p>
                         <a href="#" class="btn2 st1 logout-button">Deconectare</a>
                     </div>
                 </div>
                 <div class="card">
                     <h3 class="title st2">Despre cont</h3>
                     <div class="padder">
-                        <p>Ești aici de pe data de {{user.signup|date('d.m.Y')}}.</p>
-                        <p>Contribuții: {{user.contributii}}</p>
+                        <p>Ești aici de pe data de {{user.reg_tm|date('d.m.Y')}}.</p>
+                        <p>Contribuții: {{user.contribs}}</p>
                     </div>
                 </div>
                 <div class="card">
@@ -75,7 +75,7 @@
                         <div class="list">
                             {% for itm in magaz_quee %}
                             <div class="listi" data-id="{{itm.id}}">
-                                {{itm.user_nume}} (#{{itm.user_id}}) a propus magazinul <strong>{{itm.data.nume}}</strong> în orașul <strong>{{itm.data.nume_oras}}</strong>. <br>
+                                {{itm.user.name}} (#{{itm.user_id}}) a propus magazinul <strong>{{itm.data.name}}</strong> în orașul <strong>{{itm.data.nume_oras}}</strong>. <br>
                                 <a href="#" class="action_transcript btn2 mini blue">Transcrie</a>
                                 <a href="#" class="action_done btn2 mini">Finalizat</a>
                                 <a href="#" class="action_delete btn2 mini red">Șterge</a>

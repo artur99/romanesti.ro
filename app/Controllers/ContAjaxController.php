@@ -28,12 +28,12 @@ class ContAjaxController implements ControllerProviderInterface{
     }
 
     public function signup(Application $app){
-        $nume = $app['request']->request->get('nume');
+        $name = $app['request']->request->get('name');
         $email = $app['request']->request->get('email');
         $password = $app['request']->request->get('password');
         $password2 = $app['request']->request->get('password2');
 
-        $q = $this->userModel->signup($nume, $email, $password, $password2);
+        $q = $this->userModel->signup($name, $email, $password, $password2);
 
         return new JsonResponse($q);
     }

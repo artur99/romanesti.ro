@@ -36,7 +36,7 @@ class OraseController implements ControllerProviderInterface{
         }
         $magazs = $this->CityModel->getShops($res['id']);
         $twigdata = [
-            'title' => 'Orașul '.$res['nume'],
+            'title' => 'Orașul '.$res['name'],
             'magazine' => $magazs,
             'oras' => $res
         ];

@@ -11,7 +11,14 @@
                 <div class="titlesecin">
                     <div class="in">
                         <h1>Orașul {{oras.nume}}</h1>
-                        <a href="{{l('/orase')}}" class="littlelink"><i class="material-icons">&#xE8B6;</i> Caută alt oraș</a>
+                        <a href="{{l('/orase')}}" class="littlelink mobile-only"><i class="material-icons">&#xE8B6;</i> Caută alt oraș</a>
+                        <form action="#" class="littleform desktop-only" id="search_oras_form">
+                            <div class="in2">
+                                <h3>Caută un alt oraș:</h3>
+                                <input id="search_oras_input" class="input1" type="text" placeholder="Scrie numele orașului...">
+                                <a href="#" class="btn1">Caută orașul</a>
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -45,7 +52,7 @@
                     <div class="mgzlogo {{itm.logo is empty?'romdeflogo'}}" {% if itm.logo %}style="background-image:url('{{itm.logo}}')"{% endif %}></div>
                     <p class="nume_f">{{itm.nume_firma}}</p>
                     <span class="badge type">{{itm.tip|title}}</span>
-                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
+                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 badge green">Indicații</a>
                 </div>
                 {% endfor %}
                 {% if magazine.romanesti|length == 0%}
@@ -64,7 +71,7 @@
                     <div class="mgzlogo {{itm.logo is empty?'strdeflogo'}}" {% if itm.logo %}style="background-image:url('{{itm.logo}}')"{% endif %}></div>
                     <p class="nume_f">{{itm.nume_firma}}</p>
                     <span class="badge type">{{itm.tip|title}}</span>
-                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 mini">Indicații</a>
+                    <a href="https://google.com/maps/?q={{itm.coord_lat}},{{itm.coord_lng}}" target="_blank" class="btn2 badge red">Indicații</a>
                 </div>
                 {% endfor %}
                 {% if magazine.romanesti|length == 0%}

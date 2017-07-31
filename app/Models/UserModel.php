@@ -47,7 +47,7 @@ class UserModel extends BaseModel{
         $nm = S::create($nm)->slugify('%')->__toString();
 
         if(strlen(trim($nm))>0){
-            $stmt = $this->db->prepare("SELECT id, nume FROM orase WHERE nume LIKE :name LIMIT 1");
+            $stmt = $this->db->prepare("SELECT id, name FROM cities WHERE name LIKE :name LIMIT 1");
             $stmt->bindValue('name', '%'.$nm.'%');
             $stmt->execute();
             $result = $stmt->fetch();
@@ -74,7 +74,7 @@ class UserModel extends BaseModel{
         }else{
             $pw = (string) $this->pwEncode($pw);
             $nm = (string) S::create($nm)->toTitleCase()->__toString();
-            $stmt = $this->db->prepare("INSERT INTO users(nume, email, parola, reg_tm, log_tm, reg_ip, log_ip) VALUES(:nm, :em, :pw, :tm, :tm, :ip, :ip)");
+            $stmt = $this->db->prepare("INSERT INTO users(name, email, password, reg_tm, log_tm, reg_ip, log_ip) VALUES(:nm, :em, :pw, :tm, :tm, :ip, :ip)");
             $stmt->bindValue('nm', $nm);
             $stmt->bindValue('em', $em);
             $stmt->bindValue('pw', $pw);
@@ -100,7 +100,7 @@ class UserModel extends BaseModel{
             $err = 'Parola introdusă este incorectă';
         }else{
             $pw = (string) $this->pwEncode($pw);
-            $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :em AND parola = :pw LIMIT 1");
+            $stmt = $this->db->prepare("SELECT * FROM users WHERE email = :em AND password = :pw LIMIT 1");
             $stmt->bindValue('em', $em);
             $stmt->bindValue('pw', $pw);
             $stmt->execute();
@@ -112,7 +112,7 @@ class UserModel extends BaseModel{
                 $stmt->bindValue('tm', time());
                 $stmt->bindValue('ip', isset($_SERVER['REMOTE_ADDR'])?$_SERVER['REMOTE_ADDR']:NULL);
                 $stmt->execute();
-                $this->loginSet($r['id'], $r['nume'], $r['email'], $r['signup'], $r['contributii']);
+                $this->loginSet($r['id'], $r['name'], $r['email'], $r['reg_tm'], $r['contribs']);
             }
         }
         return [
@@ -126,10 +126,10 @@ class UserModel extends BaseModel{
 
         $data_arr = [
             'id' => $id,
-            'nume' => $nm,
+            'name' => $nm,
             'email' => $em,
-            'signup' => $sup,
-            'contributii' => $contrib
+            'reg_tm' => $sup,
+            'contribs' => $contrib
         ];
         if($id == 1){
             $data_arr['admin'] = 1;
@@ -152,7 +152,7 @@ class UserModel extends BaseModel{
         }else{
             $countries = StaticData::countryNames();
             $shopTypes = StaticData::shopTypes();
-            $all = ['lat', 'lng', 'nume', 'oras', 'nume_firma', 'logo', 'nationalit', 'tip', 'etichete', 'popularitate', 'descriere'];
+            $all = ['lat', 'lng', 'name', 'oras', 'nume_firma', 'logo', 'nationalit', 'tip', 'etichete', 'popularitate', 'descriere'];
             foreach($data as $k => $el2){
                 $data[$k] = trim($data[$k]);
                 if(!in_array($k, $all)){
@@ -160,7 +160,7 @@ class UserModel extends BaseModel{
                 }
             }
 
-            $checker = ['lat', 'lng', 'oras', 'nume', 'nume_firma', 'oras', /*'logo',*/ 'nationalit', 'tip', /*'etichete',*/ 'popularitate'/*, 'descriere'*/];
+            $checker = ['lat', 'lng', 'oras', 'name', 'nume_firma', 'oras', /*'logo',*/ 'nationalit', 'tip', /*'etichete',*/ 'popularitate'/*, 'descriere'*/];
             foreach($checker as $itm){
                 $data[$itm] = isset($data[$itm])?$data[$itm]:null;
             }
@@ -178,7 +178,7 @@ class UserModel extends BaseModel{
                 $err = 'Naționalitatea aleasă este invalidă';
             }elseif(!isset($shopTypes[$data['tip']])){
                 $err = 'Tipul de magazin ales este invalid';
-            }elseif(strlen($data['nume']) < 3){
+            }elseif(strlen($data['name']) < 3){
                 $err = 'Numele magazinului este prea scurt';
             }elseif(!($o_data = $this->cityExists($data['oras']))){
                 $err = 'Numele orașului este incorect';
@@ -187,7 +187,7 @@ class UserModel extends BaseModel{
                     $data_to_save = $data;
                     $uid = (int) $this->info()['id'];
                     $data_to_save['id_oras'] = $o_data['id'];
-                    $data_to_save['nume_oras'] = $o_data['nume'];
+                    $data_to_save['nume_oras'] = $o_data['name'];
                     $data2 = json_encode($data_to_save);
 
                     $stmt = $this->db->prepare("INSERT INTO sugestii(user_id, tip, data) VALUES(:uid, :type, :data)");
@@ -202,7 +202,7 @@ class UserModel extends BaseModel{
 
                     $isro = strtolower($data['nationalit']) == "ro" ? 1 : 0;
                     $stmt->bindValue('id_oras', (int) $o_data['id']);
-                    $stmt->bindValue('nume', $data['nume']);
+                    $stmt->bindValue('name', $data['name']);
                     $stmt->bindValue('nume_f', $data['nume_firma']);
                     $stmt->bindValue('nat_f', NULL);
                     $stmt->bindValue('nat_det', strtolower($data['nationalit']));
@@ -234,7 +234,7 @@ class UserModel extends BaseModel{
 
 
     function getFizShopQuee(){
-        $stmt = $this->db->prepare("SELECT sugestii.*, users.nume AS user_nume FROM sugestii LEFT JOIN users ON sugestii.user_id = users.id WHERE verificat = 0 ORDER BY sugestii.id DESC");
+        $stmt = $this->db->prepare("SELECT sugestii.*, users.name AS user_name FROM sugestii LEFT JOIN users ON sugestii.user_id = users.id WHERE verificat = 0 ORDER BY sugestii.id DESC");
         $stmt->execute();
         $results = $stmt->fetchAll();
         foreach($results as $k=>$res){
@@ -267,7 +267,7 @@ class UserModel extends BaseModel{
     }
     function getContribs($limit = 10){
         $limit = intval($limit);
-        $stmt = $this->db->prepare("SELECT id, nume, contributii FROM users WHERE contributii > 0 ORDER BY contributii DESC LIMIT :limit");
+        $stmt = $this->db->prepare("SELECT id, name, contribs FROM users WHERE contribs > 0 ORDER BY contribs DESC LIMIT :limit");
         $stmt->bindValue('limit', $limit, PDO::PARAM_INT);
         $stmt->execute();
 
