@@ -67,7 +67,8 @@ function findCity(callback){
 }
 function showBarcodeAlert(code){
     $.post('/ajax/prod/check_barcode', {
-        code: code
+        code: code,
+        csrftoken: csrftoken
     }, function(data){
         ajaxAlertHandler(data);
     })
