@@ -18,8 +18,8 @@ class SeoClass{
         $this->og['image:height'] = 630;
         $this->og['image'] = a_link('img/cover.jpg');
     }
-    public function auto($type){
-        $d = StaticSeoClass::get($type);
+    public function auto(){
+        $d = StaticSeoClass::get($this->type);
         foreach($d as $k=>$el){
             $this->set($k, $el);
         }

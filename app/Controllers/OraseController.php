@@ -38,6 +38,7 @@ class OraseController implements ControllerProviderInterface{
         $magazs = $this->CityModel->getShops($res['id']);
 
         $seo = new SeoClass('city', $app);
+        $seo->auto('desc');
         $seo->set('title', 'Magazine românești în '.$res['name']);
 
         $twigdata = [
