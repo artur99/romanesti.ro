@@ -152,7 +152,7 @@ class UserModel extends BaseModel{
         }else{
             $countries = StaticData::countryNames();
             $shopTypes = StaticData::shopTypes();
-            $all = ['lat', 'lng', 'name', 'oras', 'nume_firma', 'logo', 'nationalit', 'tip', 'etichete', 'popularitate', 'descriere'];
+            $all = ['lat', 'lng', 'nume', 'oras', 'nume_firma', 'logo', 'nationalit', 'tip', 'etichete', 'popularitate', 'descriere'];
             foreach($data as $k => $el2){
                 $data[$k] = trim($data[$k]);
                 if(!in_array($k, $all)){
@@ -160,7 +160,7 @@ class UserModel extends BaseModel{
                 }
             }
 
-            $checker = ['lat', 'lng', 'oras', 'name', 'nume_firma', 'oras', /*'logo',*/ 'nationalit', 'tip', /*'etichete',*/ 'popularitate'/*, 'descriere'*/];
+            $checker = ['lat', 'lng', 'oras', 'nume', 'nume_firma', 'oras', /*'logo',*/ 'nationalit', 'tip', /*'etichete',*/ 'popularitate'/*, 'descriere'*/];
             foreach($checker as $itm){
                 $data[$itm] = isset($data[$itm])?$data[$itm]:null;
             }
@@ -178,7 +178,7 @@ class UserModel extends BaseModel{
                 $err = 'Naționalitatea aleasă este invalidă';
             }elseif(!isset($shopTypes[$data['tip']])){
                 $err = 'Tipul de magazin ales este invalid';
-            }elseif(strlen($data['name']) < 3){
+            }elseif(strlen($data['nume']) < 3){
                 $err = 'Numele magazinului este prea scurt';
             }elseif(!($o_data = $this->cityExists($data['oras']))){
                 $err = 'Numele orașului este incorect';
@@ -202,7 +202,7 @@ class UserModel extends BaseModel{
 
                     $isro = strtolower($data['nationalit']) == "ro" ? 1 : 0;
                     $stmt->bindValue('id_oras', (int) $o_data['id']);
-                    $stmt->bindValue('name', $data['name']);
+                    $stmt->bindValue('nume', $data['nume']);
                     $stmt->bindValue('nume_f', $data['nume_firma']);
                     $stmt->bindValue('nat_f', NULL);
                     $stmt->bindValue('nat_det', strtolower($data['nationalit']));
@@ -245,7 +245,7 @@ class UserModel extends BaseModel{
     }
     function setFizShopSuggestionDone($sid){
         $sid = intval($sid);
-        $stmt = $this->db->prepare("UPDATE users u INNER JOIN sugestii s ON u.id = s.user_id SET u.contributii = u.contributii+1, s.verificat = 1 WHERE s.id = :sid");
+        $stmt = $this->db->prepare("UPDATE users u INNER JOIN sugestii s ON u.id = s.user_id SET u.contribs = u.contribs+1, s.verificat = 1 WHERE s.id = :sid");
         $stmt->bindValue('sid', $sid);
         $stmt->execute();
 

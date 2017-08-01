@@ -149,7 +149,7 @@ $app->before(function ($request)use($app) {
     $request->getSession()->start();
     $rm = new RequestMatcher();
     $rm->matchPath("/ajax/.*");
-    if(false && $rm->matches($request)){
+    if($rm->matches($request)){
         if($app['csrf']->getToken('main')->__tostring() != $request->get('csrftoken')){
             return new JsonResponse(['type'=>'error','text'=>'Token invalid']);
         }
